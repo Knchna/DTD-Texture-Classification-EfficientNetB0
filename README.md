@@ -126,8 +126,6 @@ The project uses **EfficientNetB0** as the selected convolutional neural network
 
 The model is intended to use **transfer learning**, leveraging pretrained visual features for the 47-class texture classification task.
 
-> Model architecture, training configuration and evaluation results will be documented here after model development and training are completed.
-
 ### 8. Model Architecture
 
 The project uses **EfficientNetB0** with pretrained ImageNet weights as the base model for transfer learning.
