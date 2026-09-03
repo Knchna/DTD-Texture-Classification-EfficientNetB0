@@ -1,44 +1,88 @@
 # DTD Texture Classification using EfficientNetB0
 
-A Computer Vision project for multi-class texture classification using the **Describable Textures Dataset (DTD)** and an **EfficientNetB0-based transfer learning pipeline**.
+A Computer Vision project for **47-class describable texture attribute classification** using the **Describable Textures Dataset (DTD)** and an **EfficientNetB0 transfer learning pipeline**.
 
-## Project Overview
+---
 
-Texture is an important visual characteristic in computer vision. In this project, the task is to classify texture images into one of the predefined texture categories provided by the Describable Textures Dataset (DTD).
+## Table of Contents
 
-The project follows an end-to-end computer vision workflow:
+- [Overview](#overview)
+- [Problem Statement](#problem-statement)
+- [Dataset](#dataset)
+- [Project Workflow](#project-workflow)
+- [Results](#results)
+- [Technologies Used](#technologies-used)
+- [Project Structure](#project-structure)
+- [Setup and Usage](#setup-and-usage)
+- [Acknowledgments](#acknowledgments)
 
-Dataset
-→ Exploratory Data Analysis
-→ Data Validation
-→ Image Preprocessing
-→ Label Encoding
-→ Data Augmentation
-→ EfficientNetB3 Transfer Learning
-→ Model Training
-→ Evaluation
+---
+
+## Overview
+
+Texture is an important visual characteristic in Computer Vision that provides information about the appearance and structure of objects and surfaces.
+
+This project focuses on classifying images from the **Describable Textures Dataset (DTD)** into one of **47 human-perception-inspired texture categories**, such as *knitted, cracked, scaly, veined,* and *woven*.
+
+The project follows an end-to-end Computer Vision workflow:
+
+**Dataset → Exploratory Data Analysis → Data Validation → Image Preprocessing → Label Encoding → Data Augmentation → Transfer Learning → Model Training → Evaluation → Prediction**
+
+---
+
+## Problem Statement
+
+Unlike conventional object classification, where the primary objective is to identify *what object* appears in an image, texture classification focuses on identifying **visual texture attributes**.
+
+For example, an image may contain a surface that can be described as:
+
+- Knitted
+- Cracked
+- Scaly
+- Veined
+- Braided
+- Woven
+- Banded
+- Zigzagged
+
+The objective of this project is to develop a deep learning model capable of learning visual patterns associated with these describable texture attributes and classifying an input image into one of the 47 DTD categories.
+
+---
 
 ## Dataset
 
 ### Describable Textures Dataset (DTD)
 
-The Describable Textures Dataset is a collection of texture images "in the wild", organized into **47 human-perception-inspired texture categories**.
+The **Describable Textures Dataset** is a collection of texture images "in the wild," organized into **47 human-perception-inspired texture categories**.
 
-The dataset contains:
+### Dataset Statistics
 
-- 5,640 images
-- 47 texture categories
-- 120 images per category
-- Predefined training, validation and test splits
-- 40 images per class in each split
+| Property | Value |
+|---|---:|
+| Total Images | 5,640 |
+| Texture Categories | 47 |
+| Images per Category | 120 |
+| Training Images | 1,880 |
+| Validation Images | 1,880 |
+| Test Images | 1,880 |
+| Images per Category per Split | 40 |
+| Split Used | Split 1 |
 
-The project uses the dataset's provided split files rather than creating a new random train/validation/test split.
+The project uses the **predefined DTD train, validation, and test splits** rather than creating new random splits.
+
+The following files are used to obtain the corresponding image paths and labels:
+
+```text
+train1.txt
+val1.txt
+test1.txt
+```
 
 ### Dataset Source
 
 Describable Textures Dataset — Visual Geometry Group, University of Oxford
 
-[[OFFICIAL DTD DATASET PAGE]](https://www.robots.ox.ac.uk/~vgg/data/dtd/index.html)
+[Official DTD Dataset Page](https://www.robots.ox.ac.uk/~vgg/data/dtd/index.html)
 
 ### Dataset Citation
 
@@ -47,6 +91,8 @@ Cimpoi, M., Maji, S., Kokkinos, I., Mohamed, S., & Vedaldi, A. (2014).
 **Describing Textures in the Wild.**
 
 Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR).
+
+---
 
 ## Project Workflow
 
@@ -59,14 +105,6 @@ The project uses:
 - Random seed: 42
 - Number of classes: 47
 - DTD split: Split 1
-
-The dataset is loaded using the provided:
-
-- `train1.txt`
-- `val1.txt`
-- `test1.txt`
-
-Each split file is used to obtain the corresponding image paths and texture labels.
 
 ### 2. Data Organization
 
@@ -93,7 +131,7 @@ These steps are performed to understand the dataset and verify its quality befor
 
 ### 4. Image Preprocessing
 
-Images are prepared for the EfficientNetB3 model using the following pipeline:
+Images are prepared for the EfficientNetB0 model using the following pipeline:
 
 1. Read image
 2. Convert BGR to RGB
@@ -101,7 +139,7 @@ Images are prepared for the EfficientNetB3 model using the following pipeline:
 4. Convert to `float32`
 5. Apply EfficientNet-compatible preprocessing
 
-The preprocessing is designed specifically for the selected EfficientNetB3 architecture.
+The preprocessing is designed specifically for the selected EfficientNetB0 architecture.
 
 ### 5. Label Encoding
 
@@ -235,4 +273,47 @@ DTD-Texture-Classification-EfficientNetB0/
 ├── DTD_Texture_Classification.ipynb
 ├── README.md
 ├── requirements.txt
+```
 
+---
+
+## Setup and Usage
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/<your-username>/DTD-Texture-Classification-EfficientNetB0.git
+cd DTD-Texture-Classification-EfficientNetB0
+```
+
+### 2. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+`requirements.txt`:
+
+```text
+tensorflow>=2.15
+numpy
+pandas
+opencv-python
+matplotlib
+scikit-learn
+```
+
+### 3. Download the dataset
+
+Download the DTD dataset from the [official page](https://www.robots.ox.ac.uk/~vgg/data/dtd/index.html) and place it so the notebook's `DATASET_PATH` points to the extracted `dtd` folder (containing `images/` and `labels/`).
+
+### 4. Run the notebook
+
+Open `DTD_Texture_Classification.ipynb` in Jupyter Notebook, JupyterLab, or Google Colab, and run the cells in order — from dataset loading through training, evaluation, and prediction.
+
+---
+
+## Acknowledgments
+
+- Describable Textures Dataset (DTD) — Visual Geometry Group, University of Oxford
+- EfficientNetB0 pretrained weights — Keras Applications (ImageNet)
